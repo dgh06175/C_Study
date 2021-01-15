@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>champions</title>
+  </head>
+  <body>
+    <h1>Champion List</h1>
+    <ul>
+    {% for cmp in champions %}
+      <li><a href="/champions/{{ cmp.id }}">{{ cmp.name }}</a></li>
+    {% endfor %}
+  </body>
+</html>

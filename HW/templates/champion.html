@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <title>
+      {% if champion %}
+        {{ champion.name }}
+      {% else %}
+        찾을 수 없는 챔피언 정보
+      {% endif %}
+    </title>
+  </head>
+  <body>
+  {% if champion %}
+    <p>번호: {{ champion.id }}</p>
+    <p>챔피언 이름: {{ champion.name }}</p>
+    <p>승률: {{ champion.winrate }}</p>
+    <p>포지션: {{ champion.position }}</p>
+    <p>티어: {{ champion.tier }}</p>
+  {% else %}
+    <p>챔피언 정보가 없습니다.</p>
+  {% endif %}
+    <a href="/">홈으로</a>
+  </body>
+</html>
