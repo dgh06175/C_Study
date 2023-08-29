@@ -1,0 +1,11 @@
+#include <stdio.h>
+void main()
+{
+    FILE *fp;			// 파일 포인터를 선언한다.
+    fp = fopen(“myfile.txt”, “w”);	// 텍스트 파일을 쓰기 모드로 연다.
+    if (fp != NULL)		// 파일 열기에 성공하였다면,
+    {
+        fprintf(fp, “My first file.\n”);	// 파일을 사용하고
+        fclose(fp);		// 파일을 닫는다.
+    }
+}

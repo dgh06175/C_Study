@@ -1,0 +1,53 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#define SIZE 100
+#define ROW 20
+#define COL 20
+int main(void)
+{
+	FILE *fpr, *fpw;
+	char tok[ROW][COL], bad[SIZE], gd[SIZE], line[SIZE];
+	char *token;
+	int count, i;
+	if ((fpr = fopen("data.txt", "r")) == NULL)
+	{
+		printf("파일을 열수 없습니다.\n");
+		exit(1);
+	}
+	if ((fpw = fopen("data2.txt", "a")) == NULL)
+	{
+		printf("파일을 열수 없습니다.\n");
+		exit(1);
+	}
+	printf("바뀔 단어를 입력하시오 : ");
+	scanf_s("%s", &bad, sizeof(bad));
+	printf("대신 넣을 단어를 입력하시오 : ");
+	scanf_s("%s", &gd, sizeof(gd));
+	while (!feof(fpr))
+	{
+		fgets(line, SIZE, fpr);
+		count = 0;
+		token = strtok(line, " ");
+		while (token != NULL)
+		{
+			strcpy(tok[count], token);
+			if (strcmp(tok[count], bad) == 0)
+			{
+				strcpy(tok[count], gd);
+			}
+			count++;
+			token = strtok(NULL, " \n");
+		}
+		for (i = 0; i<count; i++)
+		{
+			strcat(tok[i], " ");
+			fputs(tok[i], fpw);
+		}
+		fputs("\n", fpw);
+	}
+	fclose(fpr);
+		fclose(fpw);
+	return 0;
+}

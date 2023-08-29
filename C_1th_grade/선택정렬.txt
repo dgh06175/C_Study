@@ -1,0 +1,82 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define	SIZE	10
+#define MAX 1000
+
+void generate_random(int array[]);
+void print_array(char *str, int array[]);
+void selection_sort(int array[]);
+int find_min(int array[], int start);	// 함수 선언 추가
+void swap(int *xp, int *yp);
+
+void main(void)
+{
+	int data[SIZE], n;        // 데이터를 저장할 배열
+	srand(time(NULL));	// 한 번만 호출
+	for (n = 0; n<3; n++)	// 모두 3 회 수행
+	{
+		generate_random(data);   // 난수 생성
+		print_array("원본: ", data); // 원본 출력
+		selection_sort(data);	    // 오름차순 정렬
+		print_array("정렬: ", data); // 정렬 출력
+		printf("\n");		    // 줄 바꿈 출력
+	}
+}
+
+void generate_random(int array[])
+{
+	int n;
+	// 배열의 크기만큼
+	for (n = 0; n<SIZE; n++)
+		// 난수를 생성하여 저장한다.
+		array[n] = (rand() % MAX) + 1;
+}
+void selection_sort(int array[])
+{
+	int n, minindex;
+	for (n = 0; n<SIZE - 1; n++)
+	{
+		minindex = find_min(array, n);	// array[n] ~ array[SIZE-1]에서 최소값을 찾아
+		swap(&array[minindex], &array[n]);	// 교환한다.
+	}
+}
+int find_min(int array[], int start)
+{
+	int m;
+	int minindex = start;		// start를 최소값 인덱스로 가정한다.
+	for (m = start + 1; m<SIZE; m++)		// arrau[start+1]부터 마지막 원소까지
+		if (array[minindex] > array[m])	// 최소값의 위치를 찾아
+			minindex = m;		// minindex에 저장한다.
+	return minindex;			// 최소값의 인덱스를 리턴한다.
+}
+void print_array(char *str, int array[])
+{
+	int n;
+	printf("%s", str); // 배열 제목 출력.
+	for (n = 0; n<SIZE; n++)
+		printf("%5d", array[n]);	// 배열 원소출력
+	printf("\n");		// 다음 반복 구별
+}
+
+void swap(int *xp, int *yp)		// 파라미터를 통하여 값을 리턴
+{				// 포인터를 받는다.
+	int temp;
+	temp = *xp;
+	*xp = *yp;
+	*yp = temp;
+}
+
+-------------------------------------------------------
+void selection_sort(int array[])
+{
+    int n, m, minindex;			// 변수 m 추가
+    for (n=0; n<SIZE-1; n++)
+    {
+        minindex = n;			// 배열의 시작 위치를 최소값으로 가정
+        for (m=n+1; m<SIZE; m++)
+            if (array[minindex] > array[m])
+                minindex = m;
+        swap(&array[minindex], &array[n]);
+    }
+}
